@@ -1,0 +1,42 @@
+import colorama
+from colorama import init
+from colorama import Fore, Back, Style # дозволяє змінювати колір
+
+import inspect # допомагає проінспектувати данні модуля або класу
+
+print(help(colorama)) # інформація про сам модуль
+
+print(inspect.ismodule(colorama)) # перевіряє чи є об'єкт модулем
+print(inspect.isclass(colorama)) # перевіряє це клас чи ні
+print(inspect.ismethod(colorama)) # перевіряє чи це метод чи ні
+
+print(inspect.getmodule(colorama)) # показує де знаходиться модуль
+
+print(Fore.BLACK + 'текст іншого кольору') # змінює колір тексту
+print(Back.WHITE + 'різнокольоровий фон') # змінює колір фона на інший
+print(Style.RESET_ALL) # скидує усі настройки тексту
+print('повернувся у той який і був')
+
+
+def prRed(skk): print("\033[91m {}\033[00m" .format(skk))
+
+prRed("ще один спосіб зміни кольора")
+
+# ітерація та самогенерація ANSI Escape sequence
+
+def table():
+	for style in range(1): # скільки всього буде таблиць
+		for fg in range(30, 38):
+			s1 = ''
+			for bg in range(40, 48):
+				format = ';'.join([str(style), str(fg), str(bg)])
+				s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
+			print(s1)
+		print('\n')
+
+table()
+# ця функція дозволяє згенерирувати таблицю у різних кольорах
+
+init(autoreset=True) # полегшує працю з текстом
+print(Fore.GREEN + 'колір')
+print('він автоматично прибирає колір з тексту') # це вже варіант зміни тексту без додаткових кодів
